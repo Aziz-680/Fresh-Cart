@@ -42,7 +42,7 @@ const Cart = () => {
 
   if (products.length == 0){
     return <div className='flex justify-center items-center h-screen'>
-        <h1 className='text-3xl font-bold text-red-600'>Oops...Cart is empty, add some items to show them here :"</h1>
+        <h1 className='text-3xl font-bold text-red-600'>Oops...Cart is empty, add some items to show them here.</h1>
     </div>
   }
 

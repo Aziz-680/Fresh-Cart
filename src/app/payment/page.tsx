@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 import { onlinePaymentAction } from '../../PaymentActions/onlinePayment'
 
 
-const page = () => {
+const Page = () => {
 
   const { cartId, clearCart } = useContext(cartContext)
   const router = useRouter()
@@ -95,4 +95,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
