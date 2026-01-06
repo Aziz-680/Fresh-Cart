@@ -18,7 +18,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="p-5 bg-indigo-700 text-white shadow-lg">
+        <div className="p-5 bg-slate-900 text-white shadow-lg">
 
             <div className='w-full md:w-[80%] mx-auto flex justify-between items-center flex-col md:flex-row text-center'>
                 <ul className="flex flex-col md:flex-row text-center items-center gap-6">
@@ -32,15 +32,15 @@ const Navbar = () => {
                         </li>
 
                         <li>
-                            <Link className={path === "/categories" ? "text-emerald-400" : ""} href="/categories">Categories</Link>
+                            <Link className={path === "/categories" ? "text-emerald-400" : "hover text-indigo-300 transition-colors"} href="/categories">Categories</Link>
                         </li>
 
                         <li>
-                            <Link className={path === "/brands" ? "text-emerald-400" : ""} href="/brands">Brands</Link>
+                            <Link className={path === "/brands" ? "text-emerald-400" : "hover text-indigo-300 transition-colors"} href="/brands">Brands</Link>
                         </li>
 
                         <li className='relative'>
-                            <Link className={path === "/cart" ? "text-emerald-400" : ""} href="/cart">
+                            <Link className={path === "/cart" ? "text-emerald-400" : "hover text-indigo-300 transition-colors"} href="/cart">
                                 Cart
                                 {numOfCartItems > 0 && (
                                     <Badge className='absolute left-[90%] -top-[40%] bg-emerald-400 w-0.5 h-4.5 text-indigo-700 '>
@@ -50,7 +50,7 @@ const Navbar = () => {
                             </Link>                        </li>
 
                         <li>
-                            <Link className={path === "/allorders" ? "text-emerald-400" : ""} href="/allorders">My Orders</Link>
+                            <Link className={path === "/allorders" ? "text-emerald-400" : "hover text-indigo-300 transition-colors"} href="/allorders">My Orders</Link>
                         </li>
 
 

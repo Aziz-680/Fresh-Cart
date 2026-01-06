@@ -11,7 +11,7 @@ export default async function Home() {
   const data = await getAllProducts()
 
   return (
-    <section className='px-5 md:px-0 my-10 w-full md:w-[80%] mx-auto'>
+    <section className='px-5 md:px-0 my-10 w-full md:w-[80%] mx-auto flex flex-col min-h-screen'>
 
       <MainSlider />
       
