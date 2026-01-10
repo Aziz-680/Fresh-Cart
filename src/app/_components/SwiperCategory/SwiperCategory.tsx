@@ -3,29 +3,38 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import Image from 'next/image';
+import Link from 'next/link'; // 1. Import Link
 
 const SwiperCategory = ({ categories }) => {
     return (
         <div>
             <Swiper
-                modules={[Autoplay]} // 3. Install the Autoplay module
+                modules={[Autoplay]}
                 spaceBetween={0}
-                slidesPerView={5} // Changed to 1 for a more typical main slider view
-                loop={true}       // Added loop for a seamless experience
-                autoplay={{      // 4. Configure autoplay
-                    delay: 5000,  // Time between slides in ms
-                    disableOnInteraction: false, // Autoplay will not be disabled after user interactions
+                slidesPerView={6}
+                loop={true}
+                autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
                 }}
             >
-                {categories.map( (category , idx) => <SwiperSlide key={idx}>
-                    <Image width={500} height={500} src={category.image} alt={category.name} className='h-[300px] object-cover w-full'/>
-                    <p className='text-center my-3 text-black'>{category.name}</p>
-
-                </SwiperSlide>
-
-                )}
+                {categories.map((category, idx) => (
+                    <SwiperSlide key={idx}>
+                        {/* 2. Wrap the Image in a Link component */}
+                        <Link href={`/categoryProducts?id=${category._id}`}> 
+                            <Image 
+                                width={500} 
+                                height={500} 
+                                src={category.image} 
+                                alt={category.name} 
+                                // 3. Added 'cursor-pointer' so the user knows it's clickable
+                                className='h-full aspect-4/3 object-fill cursor-pointer' 
+                            />
+                        </Link>
+                        <p className='text-center my-3 text-black'>{category.name}</p>
+                    </SwiperSlide>
+                ))}
             </Swiper>
-
         </div>
     )
 }

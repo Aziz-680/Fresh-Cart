@@ -18,28 +18,37 @@ const Footer = () => {
 
             <div className="container mx-auto px-6 py-12 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                    
+
                     {/* Column 1: Brand Info */}
                     <div className="flex flex-col space-y-4">
                         <Link href="/" className="flex items-center gap-2">
-                             {/* Added brightness-0 invert filter to make logo white on dark bg if needed, 
+                            {/* Added brightness-0 invert filter to make logo white on dark bg if needed, 
                                  remove 'brightness-0 invert' if your logo is already colored */}
-                            <Image 
-                                src={myLogo} 
-                                alt="Fresh Cart Logo" 
-                                width={150} 
-                                height={40} 
-                                className="object-contain" 
+                            <Image
+                                src={myLogo}
+                                alt="Fresh Cart Logo"
+                                width={150}
+                                height={40}
+                                className="object-contain"
                             />
                         </Link>
-                        <p className="text-sm leading-6 text-slate-400 max-w-xs">
+                        <p className="text-sm leading-6 max-w-xs">
                             Experience the freshest way to shop. Modern, fast, and delivered right to your doorstep.
                         </p>
                         {/* Social Icons moved here for better mobile stacking */}
-                        <div className="flex gap-4 mt-2">
-                            <SocialLink href="https://linkedin.com" className="hover:bg-blue-800 transition-colors" icon="fab fa-linkedin" />
-                            <SocialLink href="mailto:abdelazizhisham8@gmail.com" className="hover:bg-red-700 transition-colors" icon="fa fa-envelope" />
-                            <SocialLink href="https://github.com/Aziz-680" className="hover:bg-gray-800 transition-colors" icon="fab fa-github" />
+                        <div className='flex items-center gap-4'>
+                            <a href="https://www.linkedin.com/in/abdelaziz-hisham-417945244/" target="_blank" rel="noreferrer" className='text-blue-400 hover:text-blue-600 hover:scale-110 transition-all duration-300'>
+                                <i className='fab fa-linkedin text-lg'></i>
+                            </a>
+                            <a href="https://github.com/Aziz-680" target="_blank" rel="noreferrer" className='text-gray-600 hover:text-black hover:scale-110 transition-all duration-300'>
+                                <i className='fab fa-github text-lg'></i>
+                            </a>
+                            <a href="mailto:abdelazizhisham8@email.com" className='text-red-400 hover:text-red-600 hover:scale-110 transition-all duration-300'>
+                                <i className='fa fa-envelope text-lg'></i>
+                            </a>
+                            <a href="https://facebook.com/Aziz.068" target="_blank" rel="noreferrer" className='text-blue-400 hover:text-blue-700 hover:scale-110 transition-all duration-300'>
+                                <i className='fab fa-facebook text-lg'></i>
+                            </a>
                         </div>
                     </div>
 
@@ -74,13 +83,13 @@ const Footer = () => {
                             Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
                         </p>
                         <form className="flex flex-col gap-2">
-                            <input 
-                                type="email" 
-                                placeholder="Enter your email" 
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
                                 className="bg-slate-800 border border-slate-700 text-white text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 placeholder-slate-500 transition-all"
                             />
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-800 font-medium rounded-lg text-sm px-5 py-2.5 transition-all shadow-lg shadow-emerald-900/20"
                             >
                                 Subscribe
@@ -110,9 +119,9 @@ const Footer = () => {
 // A simple link component with a standardized hover effect
 const FooterLink = ({ href, text }) => (
     <li>
-        <Link 
-            href={href} 
-            className="text-sm text-slate-400 hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1 group"
+        <Link
+            href={href}
+            className="text-sm  transition-colors duration-200 flex items-center gap-1 group"
         >
             <span className="w-0 overflow-hidden group-hover:w-2 transition-all duration-300 text-emerald-500">•</span>
             {text}
@@ -122,11 +131,11 @@ const FooterLink = ({ href, text }) => (
 
 // A modern, circular social button
 const SocialLink = ({ href, icon }) => (
-    <a 
-        href={href} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-black/20"
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center  hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-black/20"
     >
         <i className={`${icon} text-lg`}></i>
     </a>

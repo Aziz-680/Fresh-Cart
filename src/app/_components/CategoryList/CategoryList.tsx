@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import allCategories from '../../../apis/allCategories';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Define a TypeScript interface for the category data structure for type safety.
 interface Category {
@@ -69,7 +70,8 @@ const CategoryList: React.FC = () => {
     return (
         <div className="bg-gray-50 py-12 min-h-screen">
             <div className="container mx-auto px-4">
-                <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
+
+                <h1 className="text-4xl font-bold text-center text-slate-900 mb-10">
                     Our Product Categories
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -79,11 +81,7 @@ const CategoryList: React.FC = () => {
                             onClick={() => handleCategoryClick(category._id)}
                             className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer"
                         >
-                            <Image
-                                src={category.image}
-                                alt={category.name}
-                                className="w-full h-[200px] object-cover"
-                            />
+                            <Image src={category.image} alt={category.name} width={500} height={500} className='w-full aspect-square object-fill' />
                             <div className="p-4">
                                 <h2 className="text-xl font-semibold text-center text-gray-700">
                                     {category.name}
