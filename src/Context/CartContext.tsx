@@ -112,18 +112,29 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
         setIsLoading(true)
 
         try {
-            const data: Cart = await getUserCartAction()
+            const data: Cart | null = await getUserCartAction()
+
+            if (!data || data.status !== 'success') {
+                setNumOfCartItems(0)
+                setProducts([])
+                setTotalCartPrice(0)
+                setCartId(null)
+                return
+            }
 
             setNumOfCartItems(data.numOfCartItems)
             setProducts(data.data.products)
             setTotalCartPrice(data.data.totalCartPrice)
             setCartId(data.cartId)
 
-            setIsLoading(false)
-
         } catch (error) {
             console.log(error);
-
+            setNumOfCartItems(0)
+            setProducts([])
+            setTotalCartPrice(0)
+            setCartId(null)
+        } finally {
+            setIsLoading(false)
         }
 
     }

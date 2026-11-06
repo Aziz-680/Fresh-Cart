@@ -1,6 +1,5 @@
 "use server"
 
-import { toast } from "sonner"
 import { getMyToken } from "../utilities/token"
 
 export async function getUserCartAction() {
@@ -8,17 +7,19 @@ export async function getUserCartAction() {
     const token = await getMyToken()
 
     if (!token) {
-        toast.error("Log in First", { duration: 1000, position: "top-center" })
+        return null
     }
 
-    const response = await fetch ("https://ecommerce.routemisr.com/api/v1/cart",{
+    const response = await fetch("https://ecommerce.routemisr.com/api/v1/cart", {
         headers: {
-            token: token as string
+            token,
         }
     })
 
-    const data = await response.json()
+    if (!response.ok) {
+        throw new Error(`Unable to load cart (${response.status}).`)
+    }
 
-    return data
+    return response.json()
 
 }
