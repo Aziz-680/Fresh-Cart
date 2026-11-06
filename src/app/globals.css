@@ -206,3 +206,10 @@ html.dark .border-slate-100,
 html.dark .border-slate-200 {
   border-color: #334155 !important;
 }
+
+/* Apply a consistent 400 ms start delay to CSS animations site-wide. */
+*,
+*::before,
+*::after {
+  animation-delay: 400ms !important;
+}
