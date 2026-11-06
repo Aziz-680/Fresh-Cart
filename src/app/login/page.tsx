@@ -1,71 +1,66 @@
-"use client"
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "../../components/ui/form"
-import { Input } from '../../components/ui/input';
-import { Button } from '../../components/ui/button';
-import { loginSchema, LoginSchemaType } from '../../schema/login.schema';
+"use client";
+
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from 'next/navigation';
-import {signIn} from "next-auth/react"
+import Link from "next/link";
+import { ArrowRight, LockKeyhole, Mail } from "lucide-react";
+import { signIn } from "next-auth/react";
 import { toast } from "sonner";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../components/ui/form";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
+import AuthShell from "../_components/AuthShell/AuthShell";
+import { loginSchema, type LoginSchemaType } from "../../schema/login.schema";
 
-
-const Login = () => {
-
-    const router = useRouter();
-
+export default function Login() {
     const form = useForm<LoginSchemaType>({
-        defaultValues: {
-            email: "",
-            password: ""
-        },
-        resolver: zodResolver(loginSchema)
-    })
+        defaultValues: { email: "", password: "" },
+        resolver: zodResolver(loginSchema),
+    });
 
     async function handleLogin(values: LoginSchemaType) {
+        try {
+            const result = await signIn("credentials", {
+                email: values.email,
+                password: values.password,
+                redirect: false,
+                callbackUrl: "/",
+            });
 
+            if (result?.ok) {
+                toast.success("Welcome back!");
+                window.location.href = result.url || "/";
+                return;
+            }
 
-        const res = await signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            redirect: false,
-            callbackUrl: "/"
-        }) 
-        
-        if (res?.ok){
-            toast.success("Login Success.", { duration: 1000, position: "top-center" })
-            window.location.href = res.url || "/"
+            toast.error("We couldn’t sign you in. Check your email and password, then try again.");
+        } catch {
+            toast.error("Sign in is temporarily unavailable. Please try again.");
         }
-        else {
-            toast.error("Login Failed, Please check your email and password.", { duration: 1000, position: "top-center" })
-        }
-        
-
-
-
     }
 
     return (
-        
-        <div className='mx-auto px-5 md:px-0 my-20 md:w-1/2 text-black w-auto py-8'>
-            <h1 className='mb-5 text-3xl text-center font-bold text-indigo-700'>Login</h1>
-
+        <AuthShell
+            eyebrow="Welcome back"
+            title="Sign in to your account"
+            description="Your everyday favorites are just a moment away."
+            footer={<>New to FreshCart? <Link href="/register" className="ml-1 font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300">Create an account</Link></>}
+        >
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleLogin)} className='space-y-3'>
-
+                <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-5">
                     <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
-                            <FormItem className={undefined}>
-                                <FormLabel className='text-indigo-700'>Enter Your Email</FormLabel>
+                            <FormItem className="space-y-2">
+                                <FormLabel className="text-sm font-medium text-slate-700 dark:text-slate-200">Email address</FormLabel>
                                 <FormControl>
-                                    <Input type='email' {...field} />
+                                    <div className="relative">
+                                        <Mail size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                        <Input type="email" autoComplete="email" placeholder="you@example.com" className="h-12 rounded-xl border-slate-200 bg-stone-50/70 pl-11 text-slate-900 placeholder:text-slate-400 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white" {...field} />
+                                    </div>
                                 </FormControl>
-                                <FormDescription className={undefined} />
-                                <FormMessage className={undefined} />
-
+                                <FormMessage className="" />
                             </FormItem>
                         )}
                     />
@@ -74,26 +69,27 @@ const Login = () => {
                         control={form.control}
                         name="password"
                         render={({ field }) => (
-                            <FormItem className={undefined}>
-                                <FormLabel className='text-indigo-700'>Enter Your Password</FormLabel>
+                            <FormItem className="space-y-2">
+                                <div className="flex items-center justify-between gap-3">
+                                    <FormLabel className="text-sm font-medium text-slate-700 dark:text-slate-200">Password</FormLabel>
+                                </div>
                                 <FormControl>
-                                    <Input type='password' {...field} />
+                                    <div className="relative">
+                                        <LockKeyhole size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                        <Input type="password" autoComplete="current-password" placeholder="Enter your password" className="h-12 rounded-xl border-slate-200 bg-stone-50/70 pl-11 text-slate-900 placeholder:text-slate-400 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white" {...field} />
+                                    </div>
                                 </FormControl>
-                                <FormDescription className={undefined} />
-                                <FormMessage className={undefined} />
-
+                                <FormMessage className="" />
                             </FormItem>
                         )}
                     />
 
-                    <Button className=' w-full mt-5 bg-indigo-700 text-emerald-400 hover:text-indigo-700 hover:bg-emerald-400 transition-all  duration-300' variant={undefined} size={undefined}>Login</Button>
-
+                    <Button type="submit" variant={undefined} size={undefined} disabled={form.formState.isSubmitting} className="mt-2 h-12 w-full rounded-xl bg-slate-950 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-emerald-700 disabled:opacity-70 dark:bg-emerald-500 dark:text-slate-950 dark:hover:bg-emerald-400">
+                        {form.formState.isSubmitting ? "Signing in..." : <>Sign in <ArrowRight size={17} /></>}
+                    </Button>
                 </form>
-
             </Form>
-        </div>
-    )
+        </AuthShell>
+    );
 }
-
-export default Login
 
