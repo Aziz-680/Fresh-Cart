@@ -13,18 +13,17 @@ const Navbar = () => {
     const path = usePathname();
     const { data, status } = useSession(authOption)
     const { numOfCartItems } = useContext(cartContext)
-
     // Helper class for nav links
     const getLinkClass = (href) => {
         const baseClass = "transition-all duration-300 font-medium tracking-wide relative group";
-        const activeClass = "text-emerald-400";
-        const inactiveClass = "text-indigo-100 hover:text-emerald-400";
+        const activeClass = "text-emerald-700 dark:text-emerald-400";
+        const inactiveClass = "text-slate-600 hover:text-emerald-600 dark:text-indigo-100 dark:hover:text-emerald-400";
 
         return `${baseClass} ${path === href ? activeClass : inactiveClass}`;
     }
 
     return (
-        <nav className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-sm text-white shadow-xl border-b border-slate-800 transition-all">
+        <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 text-slate-900 shadow-xl backdrop-blur-sm transition-colors dark:border-slate-800 dark:bg-slate-900/95 dark:text-white">
 
             <div className='w-full lg:w-[85%] mx-auto p-4 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0'>
 
@@ -34,7 +33,11 @@ const Navbar = () => {
                     {/* Logo - Always Visible */}
                     <li className='hover:scale-105 transition-transform duration-300'>
                         <Link href="/">
-                            <Image src={myLogo} alt='Space Cart Logo' width={140} priority />
+                            <span className="flex items-center gap-2 dark:hidden" aria-label="Fresh Cart home">
+                                <i className="fas fa-cart-shopping text-emerald-600" aria-hidden="true"></i>
+                                <span className="text-xl font-bold tracking-tight text-slate-900">FreshCart</span>
+                            </span>
+                            <Image className="hidden dark:block" src={myLogo} alt='Fresh Cart Logo' width={140} priority />
                         </Link>
                     </li>
 
@@ -88,18 +91,18 @@ const Navbar = () => {
                     </div>
 
                     {/* Auth Buttons */}
-                    <div className="flex items-center gap-4 pl-0 md:pl-6 md:border-l border-slate-700">
+                    <div className="flex items-center gap-4 border-slate-200 pl-0 md:border-l md:pl-6 dark:border-slate-700">
 
                         {status === "authenticated" && (
                             <>
                                 {/* --- MODIFIED SECTION START --- */}
                                 {/* Changed div to Link and added hover effects */}
                                 <Link href="/profile" className="text-right hidden lg:block group cursor-pointer">
-                                    <p className='text-xs text-indigo-300 group-hover:text-emerald-400 transition-colors duration-300'>
+                                    <p className='text-xs text-slate-500 transition-colors duration-300 group-hover:text-emerald-600 dark:text-indigo-300 dark:group-hover:text-emerald-400'>
                                         Welcome back,
                                     </p>
                                     <div className='flex items-center justify-end gap-2'>
-                                        <h1 className='text-sm font-bold text-white max-w-[100px] truncate group-hover:text-emerald-400 transition-colors duration-300 underline-offset-4 group-hover:underline'>
+                                        <h1 className='max-w-[100px] truncate text-sm font-bold text-slate-900 underline-offset-4 transition-colors duration-300 group-hover:text-emerald-600 group-hover:underline dark:text-white dark:group-hover:text-emerald-400'>
                                             {data.user.name}
                                         </h1>
                                         {/* Optional: Small edit icon that appears on hover */}
@@ -109,7 +112,7 @@ const Navbar = () => {
                                 {/* --- MODIFIED SECTION END --- */}
 
                                 <button
-                                    className='px-4 py-1.5 rounded-full border border-slate-700 text-slate-300 text-sm hover:bg-red-900/20 hover:text-red-400 hover:border-red-900 transition-all duration-300 flex items-center gap-2'
+                                    className='flex items-center gap-2 rounded-full border border-slate-300 px-4 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:border-red-500 hover:bg-red-50 hover:text-red-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-red-900 dark:hover:bg-red-900/20 dark:hover:text-red-400'
                                     onClick={() => signOut({ callbackUrl: "/login" })}
                                 >
                                     <i className="fas fa-sign-out-alt"></i>
@@ -120,11 +123,11 @@ const Navbar = () => {
 
                         {status === "unauthenticated" && (
                             <>
-                                <Link className={`text-sm font-medium hover:text-emerald-400 transition-colors ${path === "/login" ? "text-emerald-400" : "text-slate-300"}`} href="/login">
+                                <Link className={`text-sm font-medium transition-colors hover:text-emerald-600 dark:hover:text-emerald-400 ${path === "/login" ? "text-emerald-600 dark:text-emerald-400" : "text-slate-600 dark:text-slate-300"}`} href="/login">
                                     Login
                                 </Link>
                                 <Link
-                                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${path === "/register" ? "bg-emerald-500 text-white shadow-lg shadow-emerald-900/20" : "bg-slate-800 text-white hover:bg-emerald-500 hover:text-slate-900"}`}
+                                    className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${path === "/register" ? "bg-emerald-500 text-white shadow-lg shadow-emerald-900/20" : "bg-slate-200 text-slate-800 hover:bg-emerald-500 hover:text-white dark:bg-slate-800 dark:text-white dark:hover:text-slate-900"}`}
                                     href="/register"
                                 >
                                     Sign Up

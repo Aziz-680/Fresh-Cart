@@ -7,6 +7,7 @@ import Image from 'next/image';
 import HomeCard from '../_components/HomeCard/HomeCard';
 
 interface Product {
+    id: string;
     _id: string;
     name: string;
     imageCover: string;
@@ -75,12 +76,12 @@ const CategoryProducts = () => {
                 </button>
 
                 <h1 className="text-4xl font-bold text-center text-slate-900 mb-10">
-                    {products.at(0).category.name}
+                    {products[0]?.category?.name ?? 'Category Products'}
                 </h1>
 
                 <div className="flex flex-wrap">
                     {products.length > 0 ? (
-                        products.map((product) => <HomeCard  product={product} />)
+                        products.map((product) => <HomeCard key={product.id} product={product} />)
                     ) : (
                         <p className="col-span-full text-center text-gray-500">
                             No products found in this category.

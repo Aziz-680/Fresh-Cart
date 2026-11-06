@@ -44,7 +44,7 @@ const Cart = () => {
         </div>
         
         <h1 className='text-3xl font-bold text-slate-800 mb-2'>Your Cart is Empty</h1>
-        <p className="text-slate-500 mb-8">Looks like you haven't added anything yet.</p>
+        <p className="text-slate-500 mb-8">Looks like you haven&apos;t added anything yet.</p>
 
         <Link
           href="/"

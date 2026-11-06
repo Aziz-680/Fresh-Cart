@@ -3,6 +3,7 @@ import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css"
 import Navbar from "./_components/navbar/Navbar";
 import Footer from "./_components/footer/Footer";
+import ThemeToggle from "./_components/ThemeToggle/ThemeToggle";
 import Providers from "../Providers";
 
 import { Toaster } from "sonner";
@@ -29,9 +30,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex-1 text-black cstthm bg-slate-100 dark:bg-slate-800`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex-1 bg-background text-foreground transition-colors duration-300`}
       >
 
         <Providers>
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
           {children}
 
         <Footer />
+        <ThemeToggle />
 
         </Providers>
         

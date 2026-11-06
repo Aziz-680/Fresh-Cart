@@ -19,7 +19,8 @@ export const authOption: AuthOptions={
             },
 
             authorize: async function(credentials) {
-                const response = await fetch (`${process.env.API}/auth/signin`, {
+                const apiBase = (process.env.API ?? "https://ecommerce.routemisr.com/api/v1").replace(/\/$/, "");
+                const response = await fetch (`${apiBase}/auth/signin`, {
                     method: 'POST',
                     body: JSON.stringify({
                         email:credentials?.email,
@@ -31,7 +32,7 @@ export const authOption: AuthOptions={
 
                 // console.log('---------------Login----------',payload);
 
-                if(payload.message === 'success'){
+                if(response.ok && payload.message === 'success'){
                     const {id}: {id:string} = jwtDecode(payload.token)
 
                     return {
@@ -65,7 +66,6 @@ export const authOption: AuthOptions={
             }
             return session
         },
-
 
     }
 

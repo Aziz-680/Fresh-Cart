@@ -48,7 +48,7 @@ const Login = () => {
 
     return (
         
-        <div className='mx-auto px-5 md:px-0 w-full my-20 md:w-1/2 text-black w-auto py-8'>
+        <div className='mx-auto px-5 md:px-0 my-20 md:w-1/2 text-black w-auto py-8'>
             <h1 className='mb-5 text-3xl text-center font-bold text-indigo-700'>Login</h1>
 
             <Form {...form}>

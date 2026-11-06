@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
 
     const authRoutes = ["/login", "/register"];
 
-    const protectedRoutes = ["/", "/allorders", "/payment", "/brands", "/categories", "/cart", "/productDetails"];
+    const protectedRoutes = ["/", "/allorders", "/payment", "/brands", "/brandProducts", "/categories", "/cart", "/profile", "/productDetails"];
 
     if (token) {
         if (authRoutes.includes(pathname)) {
@@ -25,5 +25,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/","/allorders", "/payment", "/brands", "/categories", "/cart", "/productDetails", "/login", "/register"]
+    matcher: ["/","/allorders", "/payment", "/brands", "/brandProducts", "/categories", "/cart", "/profile", "/productDetails", "/login", "/register"]
 };
