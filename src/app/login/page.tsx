@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, LockKeyhole, Mail } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
@@ -13,6 +14,7 @@ import AuthShell from "../_components/AuthShell/AuthShell";
 import { loginSchema, type LoginSchemaType } from "../../schema/login.schema";
 
 export default function Login() {
+    const router = useRouter();
     const form = useForm<LoginSchemaType>({
         defaultValues: { email: "", password: "" },
         resolver: zodResolver(loginSchema),
@@ -29,7 +31,8 @@ export default function Login() {
 
             if (result?.ok) {
                 toast.success("Welcome back!");
-                window.location.href = result.url || "/";
+                router.replace("/");
+                router.refresh();
                 return;
             }
 
